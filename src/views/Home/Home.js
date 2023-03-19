@@ -11,7 +11,7 @@ import FeaturedNfts from './components/FeaturedNfts';
 
 import axios from 'axios';
 import { ethers } from 'ethers';
-import Marketplace from 'contracts/Marketplace.sol/Marketplace.json';
+import Material from 'contracts/Material.sol/Material.json';
 
 const Home = () => {
   const theme = useTheme();
@@ -28,7 +28,7 @@ const Home = () => {
     );
     const marketContract = new ethers.Contract(
       process.env.MARKETPLACE_ADDRESS,
-      Marketplace.abi,
+      Material.abi,
       provider,
     );
     const data = await marketContract.fetchMarketItems();

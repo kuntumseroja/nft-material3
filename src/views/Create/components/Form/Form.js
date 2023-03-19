@@ -20,7 +20,8 @@ import web3 from 'web3';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
-import Marketplace from 'contracts/Marketplace.sol/Marketplace.json';
+import Material from 'contracts/Material.sol/Material.json';
+import Papa from "papaparse";
 
 const validationSchema = yup.object({
   name: yup
@@ -30,6 +31,46 @@ const validationSchema = yup.object({
     .max(50, 'Name too long')
     .required('Please specify the name'),
   description: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 1000 chars')
+    .required('Please write description'),
+  mtdomain: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 100 chars')
+    .required('Please write description'),  
+  mtgroup: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 100 chars')
+    .required('Please write description'),  
+  mtclass1: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 1000 chars')
+    .required('Please write description'),  
+  mtclass2: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 1000 chars')
+    .required('Please write description'),  
+  mtclass3: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 1000 chars')
+    .required('Please write description'),  
+  grade: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 1000 chars')
+    .required('Please write description'),  
+  mtlot: yup
+    .string()
+    .trim()
+    .max(1000, 'Should be less than 1000 chars')
+    .required('Please write description'),  
+  mtspecimen: yup
     .string()
     .trim()
     .max(1000, 'Should be less than 1000 chars')
@@ -52,8 +93,17 @@ const Form = () => {
     initialValues: {
       name: '',
       description: '',
+      mtdomain: '',
+      mtgroup: '',
+      mtclass1: '',
+      mtclass2: '',
+      mtclass3: '',
+      grade: '',
+      mtlot: '',
+      mtspecimen: '',
       price: '',
       address: '',
+      
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -61,7 +111,7 @@ const Form = () => {
       createMarket();
     },
   });
-
+  
   const [open, setOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -69,6 +119,12 @@ const Form = () => {
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [hash, setHash] = useState('');
   const fileInputRef = useRef(null);
+  
+  const [parsedData, setParsedData] = useState([]);
+  // //State to store table Column name
+  const [tableRows, setTableRows] = useState([]);
+  // //State to store the values
+  const [values, setValues] = useState([]);
 
   const projectId = process.env.INFURA_IPFS_ID;
   const projectSecret = process.env.INFURA_IPFS_SECRET;
@@ -99,7 +155,7 @@ const Form = () => {
       const price = web3.utils.toWei(formik.values.price, 'ether');
       let contract = new ethers.Contract(
         process.env.MARKETPLACE_ADDRESS,
-        Marketplace.abi,
+        Material.abi,
         signer,
       );
       let listingPrice = await contract.getListingPrice();
@@ -128,16 +184,58 @@ const Form = () => {
     if (!fileUrl) return setAlertOpen(true);
   }
 
-  async function onChange(e) {
+  // async function twoCalls = e => {
+  //   this.upload(e)
+  //   this.parsing()
+  // }
+
+  async function parsing1(e){
+    // const [parsedData, setParsedData] = useState([]);
+
+    // //State to store table Column name
+    // const [tableRows, setTableRows] = useState([]);
+  
+    // //State to store the values
+    // const [values, setValues] = useState([]);
+  Papa.parse(e.target.files[0], {
+    delimiter: ";",
+    header: true,
+    skipEmptyLines: true,
+    complete: function (results) {
+      const rowsArray = [];
+      const valuesArray = [];
+
+      // Iterating data to get column name and their values
+      results.data.map((d) => {
+        rowsArray.push(Object.keys(d));
+        valuesArray.push(Object.values(d));
+      });
+
+      // Parsed Data Response in array format
+      setParsedData(results.data);
+
+      // Filtered Column Names
+      setTableRows(rowsArray[0]);
+
+      // Filtered Values
+      setValues(valuesArray);
+    },
+  });
+};
+
+  async function upload(e) {
     const file = e.target.files[0];
+    
     try {
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
       const url = `${infuraDomain}/ipfs/${added.path}`; //DEDICATED SUBDOMAIN FROM INFURA
       setFileUrl(url);
+      // tokenId = url;
       console.log(url);
       setOpen(true);
+      
     } catch (error) {
       console.log('Error uploading file: ', error);
       setLoading(false);
@@ -146,12 +244,20 @@ const Form = () => {
   }
 
   async function createMarket() {
-    const { name, description, price, address } = formik.values;
-    if (!name || !description || !price || !fileUrl) return;
+    const { name, description, mtdomain, mtgroup, mtclass1, mtclass2, mtclass3, grade, mtlot, mtspecimen, price, address } = formik.values;
+    if (!name || !description || !mtdomain || !mtgroup || !mtclass1 || !mtclass2 || !mtclass3 || !grade || !mtlot || !mtspecimen || !price || !fileUrl) return;
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name,
       description,
+      mtdomain,
+      mtgroup,
+      mtclass1,
+      mtclass2,
+      mtclass3,
+      grade,
+      mtlot,
+      mtspecimen,
       address,
       image: fileUrl,
     });
@@ -180,7 +286,7 @@ const Form = () => {
             <input
               type="file"
               name={'file'}
-              onChange={onChange}
+              onChange={e => {upload(e); parsing1(e)}}
               ref={fileInputRef}
             />
             <Collapse in={open}>
@@ -200,9 +306,11 @@ const Form = () => {
                   </IconButton>
                 }
               >
-                File uploaded successfully!
+                 File uploaded successfully!
+                 {/* {url} */}
               </Alert>
             </Collapse>
+            <Typography color={'text.secondary'}>{fileUrl}</Typography>
             <Box sx={{ width: '100%' }}>
               <Collapse in={alertOpen}>
                 <Alert
@@ -232,7 +340,7 @@ const Form = () => {
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
-              NFT Name
+              Material Data NFT Name
             </Typography>
             <TextField
               label="Name of your NFT *"
@@ -244,6 +352,28 @@ const Form = () => {
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <table>
+              <thead>
+                <tr bgcolor="grey">
+                  {tableRows.map((rows, index) => {
+                    return <th key={index}>{rows}</th>;
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {values.map((value, index) => {
+                  return (
+                    <tr key={index}>
+                      {value.map((val, i) => {
+                        return <td key={i}>{val}</td>;
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </Grid>
           <Grid item xs={12}>
             <Typography
@@ -270,6 +400,167 @@ const Form = () => {
               }
             />
           </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Domain
+            </Typography>
+            <TextField
+              label="Phase at room temperature for majority of materials in group"
+              variant="outlined"
+              name={'mtdomain'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtdomain}
+              error={formik.touched.mtdomain && Boolean(formik.errors.mtdomain)}
+              helperText={formik.touched.mtdomain && formik.errors.mtdomain}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Group
+            </Typography>
+            <TextField
+              label="Group of periodic table to which element of simple substance belongs"
+              variant="outlined"
+              name={'mtgroup'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtgroup}
+              error={formik.touched.mtgroup && Boolean(formik.errors.mtgroup)}
+              helperText={formik.touched.mtgroup && formik.errors.mtgroup}
+            />
+          </Grid> 
+{/* //end row3  */}
+{/* //start row 4 */}
+            <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Class 1
+            </Typography>
+            <TextField
+              label="Name of material group having similar material character and similar behavior of properties"
+              variant="outlined"
+              name={'mtclass1'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtclass1}
+              error={formik.touched.mtclass1 && Boolean(formik.errors.mtclass1)}
+              helperText={formik.touched.mtclass1 && formik.errors.mtclass1}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Class 2
+            </Typography>
+            <TextField
+              label="Substance name, Chemical formula, CAS registry number, IUPAC Name"
+              variant="outlined"
+              name={'mtclass2'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtclass2}
+              error={formik.touched.mtclass2 && Boolean(formik.errors.mtclass2)}
+              helperText={formik.touched.mtclass2 && formik.errors.mtclass2}
+            />
+          </Grid> 
+{/* //end row 4 */}
+{/* //start row 5 */}
+            <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Class 3
+            </Typography>
+            <TextField
+              label="Material name, crystal structure, phase, application field, form"
+              variant="outlined"
+              name={'mtclass3'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtclass3}
+              error={formik.touched.mtclass3 && Boolean(formik.errors.mtclass3)}
+              helperText={formik.touched.mtclass3 && formik.errors.mtclass3}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Grade
+            </Typography>
+            <TextField
+              label="Grade of commercial material, Material standard, chemical composition, RM/CRM code, main material manufacturing process such as equipment"
+              variant="outlined"
+              name={'grade'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.grade}
+              error={formik.touched.grade && Boolean(formik.errors.grade)}
+              helperText={formik.touched.grade && formik.errors.grade}
+            />
+          </Grid> 
+{/* //end row 5
+//start row 6 */}
+<Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Lot
+            </Typography>
+            <TextField
+              label="Lot name, information related to fine material manufacturing process such as pre- and post -processes"
+              variant="outlined"
+              name={'mtlot'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtlot}
+              error={formik.touched.mtlot && Boolean(formik.errors.mtlot)}
+              helperText={formik.touched.mtlot && formik.errors.mtlot}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Material Specimen
+            </Typography>
+            <TextField
+              label="Specimen name, specimen shape and size"
+              variant="outlined"
+              name={'mtspecimen'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.mtspecimen}
+              error={formik.touched.mtspecimen && Boolean(formik.errors.mtspecimen)}
+              helperText={formik.touched.mtspecimen && formik.errors.mtspecimen}
+            />
+          </Grid> 
+{/* //end row 6 */}
+
           <Grid item xs={12} sm={6}>
             <Typography
               variant={'subtitle2'}
@@ -308,6 +599,9 @@ const Form = () => {
               helperText={formik.touched.address && formik.errors.address}
             />
           </Grid>
+
+
+
           <Grid item container xs={12}>
             <Box
               display="flex"

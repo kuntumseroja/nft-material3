@@ -18,7 +18,7 @@ module.exports = {
   networks: {
     mumbai: {
       url:
-        `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API}` ||
+        process.env.MUMBAI_URL ||
         '',
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],

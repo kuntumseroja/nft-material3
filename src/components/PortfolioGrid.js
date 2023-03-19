@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -11,11 +11,25 @@ import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import LinkIcon from '@mui/icons-material/Link';
 import Link from '@mui/material/Link';
+import Papa from "papaparse";
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import CsvViewer from 'components/Csv-Viewer';
 
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
-import Marketplace from 'contracts/Marketplace.sol/Marketplace.json';
+import Material from 'contracts/Material.sol/Material.json';
+import { Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText } from '@mui/material';
+
+// const [openModal1, setOpenModal1] = useState(false);
+// const handleClickOpen = async (item.address) => {
+//   setSelectedHash(item.address);
+//   const response = {item.address};
+//   const parsedData = Papa.parse(response.data, { header: true, skipEmptyLines: true });
+//   setCsvData(parsedData.data);
+//   setOpenModal1(true);
+// };
+
+
 
 const PortfolioGrid = ({ data = [], buttonShow }) => {
   const theme = useTheme();
@@ -31,7 +45,7 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
     const signer = provider.getSigner();
     const marketContract = new ethers.Contract(
       process.env.MARKETPLACE_ADDRESS,
-      Marketplace.abi,
+      Material.abi,
       signer,
     );
     /* user will be prompted to pay the asking price to complete the transaction */
@@ -42,7 +56,53 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
     });
     await transaction.wait();
     await loadNFTs();
+    // await parse1();
+
   }
+
+  // async function parse1() {
+  //   // State to store parsed data
+  //   const [parsedData, setParsedData] = useState([]);
+  
+  //   //State to store table Column name
+  //   const [tableRows, setTableRows] = useState([]);
+  
+  //   //State to store the values
+  //   const [values, setValues] = useState([]);
+
+  //     // Passing file data (event.target.files[0]) to parse using Papa.parse
+  //     Papa.parse(item.address, {
+  //       download: true,
+  //       delimiter: ";",
+  //       header: true,
+  //       skipEmptyLines: true,
+  //       complete: function (results) {
+  //         const rowsArray = [];
+  //         const valuesArray = [];
+  
+  //         // Iterating data to get column name and their values
+  //         results.data.map((d) => {
+  //           rowsArray.push(Object.keys(d));
+  //           valuesArray.push(Object.values(d));
+  //         });
+  
+  //         // Parsed Data Response in array format
+  //         setParsedData(results.data);
+  
+  //         // Filtered Column Names
+  //         setTableRows(rowsArray[0]);
+  
+  //         // Filtered Values
+  //         setValues(valuesArray);
+  //       },
+  //     });
+  //   }
+  const [open, setOpen] = useState([]);
+  const handleOpenDialog = (i, openState) => {
+    const newOpen = open.slice();
+    newOpen[i] = openState;
+    setOpen(newOpen);
+  };
 
   return (
     <Box>
@@ -119,11 +179,89 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
                   >
                     {item.name}
                   </Typography>
+                  <Typography variant={'subtitle2'} color="text.secondary">
+                      <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
+                        Link to creator address
+                      </Link>
+                  </Typography>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
                     <Typography variant={'subtitle2'} color="text.secondary">
                       {item.description}
                     </Typography>
+                    {/* <Box display={'flex'} alignItems={'center'} marginY={2}> */}
+                    {/* <Typography variant={'subtitle2'} color="text.secondary">
+                      parse1(i);
+                    <table>
+                      <thead>
+                        <tr> 
+                           {tableRows.map((rows, index) => {
+                            return <th key={index}>{rows}</th>;
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {values.map((value, index) => {
+                          return (
+                            <tr key={index}>
+                              {value.map((val, i) => {
+                                return <td key={i}>{val}</td>;
+                              })}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                      
+                    </Typography> */}
                   </Box>
+
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                     Domain: {item.mtdomain}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                      Group: {item.mtgroup}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                      Material Class 1: {item.mtclass1}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                    Material Class 1:{item.mtclass1}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                    Material Class 2:{item.mtclass2}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                    Material Class 3:{item.mtclass3}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                    Material Grade:{item.grade}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                    Material Lot:{item.mtlot}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                    Material Specimen: {item.mtspecimen} 
+                    </Typography>
+                  </Box>
+               
+
                   <Box display={'flex'} alignItems={'center'}>
                     <Box
                       component={'svg'}
@@ -137,12 +275,27 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
                     >
                       <LinkIcon />
                     </Box>
-                    <Typography variant={'subtitle2'} color="text.secondary">
-                      <Link href={item.address} underline="none">
+                    <Box
+                      component={ListItem}
+                      button
+                      onClick={() => handleOpenDialog(i, true)}
+                      sx={{ flexDirection: 'column', alignItems: 'flex-start' }}
+                       >
+                      <Typography variant="subtitle2">DataSheet NFT:</Typography>
+                      <Typography variant="subtitle2">{item.address}</Typography>
+                    </Box>
+                    {/* <Typography variant={'subtitle2'} color="text.secondary"> */}
+                      {/* <Link href={item.address} underline="none">
                         Link to NFT
+                      </Link> */}
+
+                      {/* <Link href={item.tokenURI} underline="none">
+                        Link to NFT tokenURI  
                       </Link>
-                    </Typography>
+                    </Typography> */}
                   </Box>
+
+
                   <CardActions sx={{ justifyContent: 'flex-end' }}>
                     {buttonShow && (
                       <Button
@@ -169,8 +322,22 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
               </Box>
             </Box>
           </Grid>
-        ))}
+))}
       </Grid>
+
+      {/* //new */}
+      {data.map((item, i) => (
+        <Dialog key={i} open={open[i]} onClose={() => handleOpenDialog(i, false)} fullWidth maxWidth="md">
+          <DialogTitle>DataSheet {item.name}-{item.address}</DialogTitle>
+          <DialogContent>
+            <CsvViewer fileUrl={item.address} />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => handleOpenDialog(i, false)}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      ))}
+      {/* new */}
     </Box>
   );
 };

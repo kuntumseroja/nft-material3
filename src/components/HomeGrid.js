@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 
 const HomeGrid = ({ data = [] }) => {
   const theme = useTheme();
@@ -32,7 +33,7 @@ const HomeGrid = ({ data = [] }) => {
             fontWeight: 700,
           }}
         >
-          Browse our popular NFTs
+          Browse popular NFTs
         </Typography>
       </Box>
       <Grid container spacing={{ xs: 2, sm: 4 }}>
@@ -77,8 +78,40 @@ const HomeGrid = ({ data = [] }) => {
                   <Typography variant={'h5'} fontWeight={700} marginY={1}>
                     {item.name}
                   </Typography>
+                  <Typography variant={'subtitle2'} color="text.secondary">
+                      <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
+                        Link to creator address
+                      </Link>
+                  </Typography>            
                   <Typography color={'text.secondary'}>
                     {item.description}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Domain: {item.mtdomain}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Group: {item.mtgroup}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Class 1: {item.mtclass1}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Class 2: {item.mtclass2}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Class 3: {item.mtclass3}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Grade: {item.grade}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Lot: {item.mtlot}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Specimen: {item.mtspecimen}
+                  </Typography>
+                  <Typography color={'text.secondary'}>
+                    Material Specimen: {item.image}
                   </Typography>
                 </Box>
               </Card>

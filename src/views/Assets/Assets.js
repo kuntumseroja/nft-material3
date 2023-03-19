@@ -10,7 +10,7 @@ import Contact from 'components/Contact';
 
 import axios from 'axios';
 import Web3Modal from 'web3modal';
-import Marketplace from '/artifacts/contracts/Marketplace.sol/Marketplace.json';
+import Material from '/artifacts/contracts/Material.sol/Material.json';
 import { ethers } from 'ethers';
 
 export default function CreateItem() {
@@ -29,7 +29,7 @@ export default function CreateItem() {
 
     const marketContract = new ethers.Contract(
       process.env.MARKETPLACE_ADDRESS,
-      Marketplace.abi,
+      Material.abi,
       signer,
     );
     const data = await marketContract.fetchMyNFTs();
