@@ -581,22 +581,24 @@ const Form = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography
+            {/* <Typography
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
               Link
-            </Typography>
+            </Typography> */}
             <TextField
-              label="Link to your NFT"
-              variant="outlined"
+              //label="Link to your NFT"
+              // variant="outlined"
+              display="none"
               name={'address'}
-              fullWidth
-              onChange={formik.handleChange}
-              value={formik.values?.address}
-              error={formik.touched.address && Boolean(formik.errors.address)}
-              helperText={formik.touched.address && formik.errors.address}
+              type="hidden"
+              // fullWidth
+              // onChange={formik.handleChange}
+              // value={formik.values?.address}
+              // error={formik.touched.address && Boolean(formik.errors.address)}
+              // helperText={formik.touched.address && formik.errors.address}
             />
           </Grid>
 

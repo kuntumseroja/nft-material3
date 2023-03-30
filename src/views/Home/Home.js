@@ -46,7 +46,16 @@ const Home = () => {
           image: meta.data.image,
           name: meta.data.name,
           description: meta.data.description,
-          address: meta.data.address,
+          mtdomain: meta.data.mtdomain,
+          mtgroup: meta.data.mtgroup,
+          mtclass1: meta.data.mtclass1,
+          mtclass2: meta.data.mtclass2,
+          mtclass3: meta.data.mtclass3,
+          grade: meta.data.grade,
+          mtlot: meta.data.mtlot,
+          mtspecimen: meta.data.mtspecimen,
+          address: meta.data.image,
+          tokenUri, 
         };
         return item;
       }),
