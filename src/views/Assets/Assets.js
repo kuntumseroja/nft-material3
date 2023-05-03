@@ -44,6 +44,17 @@ export default function CreateItem() {
           seller: i.seller,
           owner: i.owner,
           image: meta.data.image,
+          name: meta.data.name,
+          description: meta.data.description,
+          mtdomain: meta.data.mtdomain,
+          mtgroup: meta.data.mtgroup,
+          mtclass1: meta.data.mtclass1,
+          mtclass2: meta.data.mtclass2,
+          mtclass3: meta.data.mtclass3,
+          grade: meta.data.grade,
+          mtlot: meta.data.mtlot,
+          mtspecimen: meta.data.mtspecimen,
+          address: meta.data.image,
           tokenURI,
         };
         return item;
@@ -105,7 +116,7 @@ export default function CreateItem() {
         <Hero title="A platform to create and trade NFTs." />
       </Container>
       <Container paddingY={'0 !important'}>
-        <PortfolioGrid data={nfts} buttonShow={false} />
+        <PortfolioGrid data={nfts} buttonShow={false} buttonAsset={true} />
       </Container>
       <Box
         position={'relative'}

@@ -14,11 +14,20 @@ import Link from '@mui/material/Link';
 import Papa from "papaparse";
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import CsvViewer from 'components/Csv-Viewer';
-
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Paper } from '@mui/material';
+import {
+  TextField,
+  Snackbar,
+  IconButton,
+  Collapse,
+  Alert,
+} from '@mui/material';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import Material from 'contracts/Material.sol/Material.json';
 import { Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText } from '@mui/material';
+// import TextField from '@material-ui/core/TextField';
 
 // const [openModal1, setOpenModal1] = useState(false);
 // const handleClickOpen = async (item.address) => {
@@ -30,10 +39,10 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, List
 // };
 
 
-
-const PortfolioGrid = ({ data = [], buttonShow }) => {
+// const headers = csvData.length > 0 ? Object.keys(csvData[0]) : [];
+const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
   const theme = useTheme();
-
+  const [snackbarOpen1, setSnackbarOpen1] = useState(false);
   async function buyNft(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
     const web3Modal = new Web3Modal({
@@ -55,11 +64,74 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
       value: price,
     });
     await transaction.wait();
-    await loadNFTs();
+    handleSnackbarOpen1(); 
+    // await loadNFTs();
     // await parse1();
 
   }
+  const [openResellDialog, setOpenResellDialog] = useState(false);
+  const [resellPrice, setResellPrice] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [tokenId, setTokenId] = useState(null);
+  const [hash, setHash] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  
+  const [nftName, setNftName] = useState('');
 
+  // let tokenId;
+  const handleResell = async () => {
+    try {
+      const web3Modal = new Web3Modal({
+        network: 'mainnet',
+        cacheProvider: true,
+      });
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const marketContract = new ethers.Contract(
+        process.env.MARKETPLACE_ADDRESS,
+        Material.abi,
+        signer,
+      );
+
+      // let listingPrice = await marketContract.getListingPrice(tokenId);
+      // console.log('listingPrice:', listingPrice);  
+
+
+      let listingPrice = await marketContract.getListingPrice();
+      listingPrice = listingPrice.toString();
+
+      console.log('resellPrice:', resellPrice);  
+
+      // const resellPriceWei = ethers.utils.parseEther(resellPrice);
+      // const transaction = await marketContract.resellToken(tokenId, resellPriceWei);
+      const resellPriceWei = ethers.utils.parseEther(resellPrice.toString()); // Convert the resellPrice to a BigNumber
+      console.log('resellPriceWei:', resellPriceWei);  
+      let price = listingPrice;
+      // const transaction1 = await marketContract.resellToken(tokenId, resellPriceWei); // Pass the BigNumber value to the function
+      let transaction1 = await marketContract.resellToken(tokenId, price, {
+        value: price,
+      });
+      await transaction1.wait();
+      setHash(transaction1.hash);
+      setOpen(false);
+      setSuccessMessage(`Material successfully listed for ${resellPrice} with hash ${hash}`);
+      setDialogBoxOpen(false);
+      setOpenResellDialog(false);
+      handleSnackbarOpen(); 
+    } catch (error) {
+      setErrorMessage('Error in creating NFT! Please try again.');
+      console.error(error);
+    }
+  };
+  const handleSnackbarOpen = () => {
+    setSnackbarOpen(true);
+  };
+  const handleSnackbarOpen1 = () => {
+    setSnackbarOpen1(true);
+  };
   // async function parse1() {
   //   // State to store parsed data
   //   const [parsedData, setParsedData] = useState([]);
@@ -97,17 +169,24 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
   //       },
   //     });
   //   }
+  // const [selectedNFT, setSelectedNFT] = useState(null);
+  // const handleNFTClick = (nft) => {
+  //   setSelectedNFT(nft);
+  // };
+  // const [title, setTitle] = useState('');
   const [open, setOpen] = useState([]);
   const handleOpenDialog = (i, openState) => {
     const newOpen = open.slice();
     newOpen[i] = openState;
     setOpen(newOpen);
+    // setTitle(DataSheet {item.name}-{item.address});
   };
 
   return (
     <Box>
       <Grid container spacing={4}>
         {data.map((item, i) => (
+          // setNftName(`${item.name}`);
           <Grid item xs={12} sm={6} md={4} key={i}>
             <Box display={'block'} width={1} height={1}>
               <Box
@@ -181,38 +260,14 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
                   </Typography>
                   <Typography variant={'subtitle2'} color="text.secondary">
                       <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
-                        Link to creator address
+                        Link to seller address
                       </Link>
                   </Typography>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
                     <Typography variant={'subtitle2'} color="text.secondary">
                       {item.description}
                     </Typography>
-                    {/* <Box display={'flex'} alignItems={'center'} marginY={2}> */}
-                    {/* <Typography variant={'subtitle2'} color="text.secondary">
-                      parse1(i);
-                    <table>
-                      <thead>
-                        <tr> 
-                           {tableRows.map((rows, index) => {
-                            return <th key={index}>{rows}</th>;
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {values.map((value, index) => {
-                          return (
-                            <tr key={index}>
-                              {value.map((val, i) => {
-                                return <td key={i}>{val}</td>;
-                              })}
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                      
-                    </Typography> */}
+                    
                   </Box>
 
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
@@ -281,9 +336,17 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
                       onClick={() => handleOpenDialog(i, true)}
                       sx={{ flexDirection: 'column', alignItems: 'flex-start' }}
                        >
-                      <Typography variant="subtitle2">DataSheet NFT:</Typography>
-                      <Typography variant="subtitle2">{item.address}</Typography>
+                      <Typography variant="subtitle2">View DataSheet NFT:</Typography>
+                      <Typography variant="subtitle1">Seller</Typography>
+                      <Typography variant="subtitle2">{item.seller}</Typography>
+
+                      <box>
+                      <Typography variant="subtitle1">Owner:</Typography></box>
+                      <box>
+                      <Typography variant="subtitle2">{item.owner}</Typography></box>
+
                     </Box>
+                    {/* compare button */}
                     {/* <Typography variant={'subtitle2'} color="text.secondary"> */}
                       {/* <Link href={item.address} underline="none">
                         Link to NFT
@@ -295,7 +358,30 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
                     </Typography> */}
                   </Box>
 
+                  <Box display={'flex'} alignItems={'center'}>
+                    <Box
+                      component={'svg'}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      width={16}
+                      height={16}
+                      marginRight={1}
+                    >
+                      <LinkIcon />
+                    </Box>
 
+                  {/* <Box
+                      component={ListItem}
+                      button
+                      onClick={() => handleOpenDialog(i, true)}
+                      sx={{ flexDirection: 'column', alignItems: 'flex-start' }}
+                       >
+                      <Typography variant="subtitle2">Compare:</Typography>
+                  </Box> */}
+
+                  </Box>
                   <CardActions sx={{ justifyContent: 'flex-end' }}>
                     {buttonShow && (
                       <Button
@@ -317,6 +403,29 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
                         Buy
                       </Button>
                     )}
+                  {buttonAsset && (
+                      <Button
+                      onClick={() => {
+                        setTokenId(item.tokenId);
+                        setOpenResellDialog(true);
+                      }}
+                        startIcon={
+                          <Box
+                            component={'svg'}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            width={24}
+                            height={24}
+                          >
+                            <ShoppingBagIcon />
+                          </Box>
+                        }
+                      >
+                        Resell
+                      </Button>
+                    )}  
                   </CardActions>
                 </CardContent>
               </Box>
@@ -324,27 +433,81 @@ const PortfolioGrid = ({ data = [], buttonShow }) => {
           </Grid>
 ))}
       </Grid>
+      <Snackbar
+  open={snackbarOpen}
+  autoHideDuration={6000}
+  onClose={() => setSnackbarOpen(false)}
+  // message={successMessage}
+  message={`Material successfully listed for ${resellPrice} with hash ${hash}`}
+  buttonText="View on polygonscan"
+  buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+  action={
+    <Button color="secondary" size="small" onClick={() => setSnackbarOpen(false)}>
+      Close
+    </Button>
+  }
+      />
+   <Snackbar
+  open={snackbarOpen1}
+  autoHideDuration={6000}
+  onClose={() => setSnackbarOpen1(false)}
+  // message={successMessage}
+  message={`Material successfully transfered, check your asset`}
+  // buttonText="View on polygonscan"
+  // buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+  action={
+    <Button color="secondary" size="small" onClick={() => setSnackbarOpen(false)}>
+      Close
+    </Button>
+  }
+      />
 
       {/* //new */}
       {data.map((item, i) => (
         <Dialog key={i} open={open[i]} onClose={() => handleOpenDialog(i, false)} fullWidth maxWidth="md">
           <DialogTitle>DataSheet {item.name}-{item.address}</DialogTitle>
+          {/* <DialogTitle>{title}</DialogTitle> */}
           <DialogContent>
-            <CsvViewer fileUrl={item.address} />
+            {/* <CsvViewer fileUrl={item.address} listData={data} title={title} /> */}
+            <CsvViewer fileUrl={item.address} listData={data} />
+
+
+            
           </DialogContent>
           <DialogActions>
             <Button onClick={() => handleOpenDialog(i, false)}>Close</Button>
           </DialogActions>
         </Dialog>
+      
       ))}
-      {/* new */}
-    </Box>
-  );
-};
+      
+
+        <Dialog open={openResellDialog} onClose={() => setOpenResellDialog(false)}>
+    <DialogTitle>Resell NFT  </DialogTitle>
+    <DialogContent>
+      <TextField
+        label="New Price"
+        value={resellPrice}
+        onChange={(e) => setResellPrice(e.target.value)}
+      />
+     
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={() => setOpenResellDialog(false)}>Cancel</Button>
+      <Button onClick={handleResell}>Resell</Button>
+    </DialogActions>
+  </Dialog>
+
+      </Box>
+    );
+  };
+
 
 PortfolioGrid.propTypes = {
   data: PropTypes.array,
   buttonShow: PropTypes.bool,
+  buttonAsset: PropTypes.bool,
+  materialNFTs: PropTypes.array,
 };
 
 export default PortfolioGrid;
