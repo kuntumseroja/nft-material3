@@ -19,6 +19,7 @@ import { Paper } from '@mui/material';
 import {
   TextField,
   Snackbar,
+  CircularProgress, 
   IconButton,
   Collapse,
   Alert,
@@ -45,6 +46,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
   const [snackbarOpen1, setSnackbarOpen1] = useState(false);
   async function buyNft(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
+    setLoading(true);
     const web3Modal = new Web3Modal({
       network: 'mainnet',
       cacheProvider: true,
@@ -65,6 +67,8 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
     });
     await transaction.wait();
     handleSnackbarOpen1(); 
+    setLoading(false);
+
     // await loadNFTs();
     // await parse1();
 
@@ -79,10 +83,12 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   
   const [nftName, setNftName] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // let tokenId;
   const handleResell = async () => {
     try {
+      setLoading(true);
       const web3Modal = new Web3Modal({
         network: 'mainnet',
         cacheProvider: true,
@@ -115,6 +121,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
         value: price,
       });
       await transaction1.wait();
+      setLoading(false);
       setHash(transaction1.hash);
       setOpen(false);
       setSuccessMessage(`Material successfully listed for ${resellPrice} with hash ${hash}`);
@@ -124,6 +131,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
     } catch (error) {
       setErrorMessage('Error in creating NFT! Please try again.');
       console.error(error);
+      setLoading(false);
     }
   };
   const handleSnackbarOpen = () => {
@@ -494,7 +502,11 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
     </DialogContent>
     <DialogActions>
       <Button onClick={() => setOpenResellDialog(false)}>Cancel</Button>
+      {loading ? (
+                <CircularProgress size={24} />
+              ) : (
       <Button onClick={handleResell}>Resell</Button>
+      )}
     </DialogActions>
   </Dialog>
 
