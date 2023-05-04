@@ -81,7 +81,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  
+
   const [nftName, setNftName] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -394,7 +394,11 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
                     {buttonShow && (
                       <Button
                         onClick={() => buyNft(item)}
+                        disabled={loading}
                         startIcon={
+                          loading ? (
+                            <CircularProgress size={24} />
+                          ) : (           
                           <Box
                             component={'svg'}
                             xmlns="http://www.w3.org/2000/svg"
@@ -406,9 +410,12 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
                           >
                             <ShoppingBagIcon />
                           </Box>
+                          )
                         }
+                        
                       >
-                        Buy
+                        {/* Buy */}
+                        {loading ? 'Processing' : 'Buy'}
                       </Button>
                     )}
                   {buttonAsset && (

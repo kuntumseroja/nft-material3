@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, TextField,Paper } from '@mui/material';
 import axios from 'axios';
 import Papa from 'papaparse';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
@@ -24,7 +24,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
     fetchData();
   }, [fileUrl]);
-
+  const [searchTerm, setSearchTerm] = useState('');
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     if (selectedNFT && selectedNFT.address) {
@@ -114,6 +114,12 @@ const CsvViewer = ({ fileUrl, listData }) => {
         )}
       </Grid>
       <Grid item xs={12} md={12}>
+
+      <TextField
+        label="Filter Material NFT"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
 <TableContainer component={Paper}>
   <Table>
     <TableHead>
@@ -123,14 +129,22 @@ const CsvViewer = ({ fileUrl, listData }) => {
       </TableRow>
     </TableHead>
     <TableBody>
-      {listData && listData.map((item) => (
-        // <TableRow key={item.tokenId} className={selectedRow === item.tokenId ? "selected-row" : ""}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}>
+      {/* {listData && listData.map((item) => ( */}
+        {/* // <TableRow key={item.tokenId} className={selectedRow === item.tokenId ? "selected-row" : ""}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}> */}
+        {listData && listData
+        .filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.address.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .map((item) => (
         <TableRow key={item.tokenId}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}>
 
           <TableCell>{item.name}</TableCell>
           <TableCell>{item.address}</TableCell>
         </TableRow>
-      ))}
+    ))
+  }
+      {/* ))} */}
     </TableBody>
   </Table>
 </TableContainer>
