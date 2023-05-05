@@ -68,6 +68,8 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
     await transaction.wait();
     handleSnackbarOpen1(); 
     setLoading(false);
+    window.location.reload();
+
 
     // await loadNFTs();
     // await parse1();
@@ -128,6 +130,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
       setDialogBoxOpen(false);
       setOpenResellDialog(false);
       handleSnackbarOpen(); 
+      window.location.reload();
     } catch (error) {
       setErrorMessage('Error in creating NFT! Please try again.');
       console.error(error);
