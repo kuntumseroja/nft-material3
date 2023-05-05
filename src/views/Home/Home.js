@@ -24,7 +24,7 @@ const Home = () => {
 
   async function loadNFTs() {
     const provider = new ethers.providers.JsonRpcProvider(
-      'https://rpc-mumbai.maticvigil.com',
+      process.env.MUMBAI_URL,
     );
     const marketContract = new ethers.Contract(
       process.env.MARKETPLACE_ADDRESS,
