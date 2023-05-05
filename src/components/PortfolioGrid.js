@@ -137,12 +137,29 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
       setLoading(false);
     }
   };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+    window.location.reload();
+  };
+
+  const handleSnackbarClose1 = () => {
+    setSnackbarOpen1(false);
+    window.location.reload();
+  };
+
   const handleSnackbarOpen = () => {
     setSnackbarOpen(true);
   };
   const handleSnackbarOpen1 = () => {
     setSnackbarOpen1(true);
   };
+
+  
+  // setTimeout(() => {
+  //   window.location.reload();
+  // }, 10000);
+
   // async function parse1() {
   //   // State to store parsed data
   //   const [parsedData, setParsedData] = useState([]);
@@ -454,7 +471,8 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
       <Snackbar
   open={snackbarOpen}
   autoHideDuration={6000}
-  onClose={() => setSnackbarOpen(false)}
+  onClose={handleSnackbarClose}
+  // onClose={handleSnackbarClose}
   // message={successMessage}
   message={`Material successfully listed for ${resellPrice} with hash ${hash}`}
   buttonText="View on polygonscan"
@@ -468,7 +486,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
    <Snackbar
   open={snackbarOpen1}
   autoHideDuration={6000}
-  onClose={() => setSnackbarOpen1(false)}
+  onClose={handleSnackbarClose1}
   // message={successMessage}
   message={`Material successfully transfered, check your asset`}
   // buttonText="View on polygonscan"
