@@ -17,6 +17,27 @@ const AllNfts = () => {
   const [nfts, setNfts] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
+// New state for pagination and search
+  const [currentPage, setCurrentPage] = useState(1);
+  const nftsPerPage = 6;
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Filter NFTs based on search query
+ const filteredNfts = nfts.filter(nft => 
+  nft.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  nft.description.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+// Calculate pagination details
+ const pageCount = Math.ceil(filteredNfts.length / nftsPerPage);
+ const indexOfLastNft = currentPage * nftsPerPage;
+ const indexOfFirstNft = indexOfLastNft - nftsPerPage;
+ const currentNfts = filteredNfts.slice(indexOfFirstNft, indexOfLastNft);
+ const handlePageChange = (event, value) => {
+  setCurrentPage(value);
+};
+//new from me
+
   useEffect(() => {
     loadNFTs();
   }, []);
@@ -105,7 +126,17 @@ const AllNfts = () => {
   return (
     <Main>
       <Container>
-        <PortfolioGrid data={nfts} buttonShow={true} />
+      <TextField 
+        label="Search NFTs" 
+        variant="outlined" 
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+        <PortfolioGrid data={currentNfts} buttonShow={true} />
+        <Pagination 
+        count={pageCount} 
+        page={currentPage} 
+        onChange={handlePageChange} 
+      />
       </Container>
       <Box
         position={'relative'}
