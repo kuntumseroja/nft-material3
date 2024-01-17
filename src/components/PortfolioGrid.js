@@ -372,8 +372,9 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
                       <box>
                       <Typography variant="subtitle1">Owner:</Typography></box>
                       <box>
-                      <Typography variant="subtitle2">{item.owner}</Typography></box>
-
+                      <Typography variant="subtitle2">{item.owner}</Typography>
+                      <Typography variant="subtitle2">{item.tokenURI}</Typography>
+                      </box>
                     </Box>
                     {/* compare button */}
                     {/* <Typography variant={'subtitle2'} color="text.secondary"> */}
