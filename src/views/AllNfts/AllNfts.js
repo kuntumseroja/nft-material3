@@ -24,7 +24,7 @@ const AllNfts = () => {
 
 // New state for pagination and search
   const [currentPage, setCurrentPage] = useState(1);
-  const nftsPerPage = 6;
+  const nftsPerPage = 3;
   const [searchQuery, setSearchQuery] = useState('');
 
   // Filter NFTs based on search query
