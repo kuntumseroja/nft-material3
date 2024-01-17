@@ -227,7 +227,8 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
               >
                 <CardMedia
                   title={item.name}
-                  image={item.image}
+                  //image={item.image}
+                  image="https://mumbai.polygonscan.com/images/main/nft-placeholder.svg"
                   sx={{
                     position: 'relative',
                     height: { xs: 240, sm: 340, md: 280 },
