@@ -316,12 +316,12 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                     Material Class 1:{item.mtclass1}
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                     Material Class 2:{item.mtclass2}
                     </Typography>
                   </Box>
