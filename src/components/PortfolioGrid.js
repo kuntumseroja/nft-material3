@@ -293,24 +293,24 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
                       </Link>
                   </Typography>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                       {item.description}
                     </Typography>
                     
                   </Box>
 
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                      Domain: {item.mtdomain}
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                       Group: {item.mtgroup}
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                       Material Class 1: {item.mtclass1}
                     </Typography>
                   </Box>
@@ -325,22 +325,22 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                     Material Class 3:{item.mtclass3}
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                     Material Grade:{item.grade}
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                     Material Lot:{item.mtlot}
                     </Typography>
                   </Box>
                   <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'subtitle2'} color="text.secondary">
+                    <Typography variant={'caption'} color="text.secondary">
                     Material Specimen: {item.mtspecimen} 
                     </Typography>
                   </Box>
@@ -365,15 +365,15 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
                       onClick={() => handleOpenDialog(i, true)}
                       sx={{ flexDirection: 'column', alignItems: 'flex-start' }}
                        >
-                      <Typography variant="subtitle2">View DataSheet NFT:</Typography>
-                      <Typography variant="subtitle1">Seller</Typography>
-                      <Typography variant="subtitle2">{item.seller}</Typography>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold">View DataSheet NFT:</Typography>
+                      <Typography variant="subtitle2" fontWeight="fontWeightBold">Seller</Typography>
+                      <Typography variant="caption" style={{ fontStyle: 'italic' }}>{item.seller}</Typography>
 
                       <box>
-                      <Typography variant="subtitle1">Owner:</Typography></box>
+                      <Typography variant="subtitle2" fontWeight="fontWeightBold">Owner:</Typography></box>
                       <box>
-                      <Typography variant="subtitle2">{item.owner}</Typography>
-                      <Typography variant="subtitle2">{item.tokenURI}</Typography>
+                      <Typography variant="caption" style={{ fontStyle: 'italic' }}>{item.owner}</Typography>
+                      {/* <Typography variant="subtitle2">{item.tokenURI}</Typography> */}
                       </box>
                     </Box>
                     {/* compare button */}
