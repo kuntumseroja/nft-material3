@@ -41,7 +41,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, List
 
 
 // const headers = csvData.length > 0 ? Object.keys(csvData[0]) : [];
-const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
+const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => {
   const theme = useTheme();
   const [snackbarOpen1, setSnackbarOpen1] = useState(false);
   async function buyNft(nft) {
@@ -501,13 +501,13 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
       />
 
       {/* //new */}
-      {data.map((item, i) => (
+      {dataCsv.map((item, i) => (
         <Dialog key={i} open={open[i]} onClose={() => handleOpenDialog(i, false)} fullWidth maxWidth="md">
           <DialogTitle>DataSheet {item.name}-{item.address}</DialogTitle>
           {/* <DialogTitle>{title}</DialogTitle> */}
           <DialogContent>
             {/* <CsvViewer fileUrl={item.address} listData={data} title={title} /> */}
-            <CsvViewer fileUrl={item.address} listData={data} />
+            <CsvViewer fileUrl={item.address} listData={dataCsv} />
 
 
             
@@ -547,6 +547,7 @@ const PortfolioGrid = ({ data = [], buttonShow, buttonAsset }) => {
 
 PortfolioGrid.propTypes = {
   data: PropTypes.array,
+  dataCsv: PropTypes.array,
   buttonShow: PropTypes.bool,
   buttonAsset: PropTypes.bool,
   materialNFTs: PropTypes.array,

@@ -136,7 +136,7 @@ const AllNfts = () => {
         variant="outlined" 
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-        <PortfolioGrid data={currentNfts} buttonShow={true} />
+        <PortfolioGrid data={currentNfts} dataCsv={nfts} buttonShow={true} />
         <Pagination 
         count={pageCount} 
         page={currentPage} 
