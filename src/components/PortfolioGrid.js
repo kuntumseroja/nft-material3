@@ -231,7 +231,8 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                   image="https://mumbai.polygonscan.com/images/main/nft-placeholder.svg"
                   sx={{
                     position: 'relative',
-                    height: { xs: 240, sm: 340, md: 280 },
+                    height: { xs: 120, sm: 170, md: 140 },
+                    // height: { xs: 240, sm: 340, md: 280 },
                     overflow: 'hidden',
                   }}
                 >
