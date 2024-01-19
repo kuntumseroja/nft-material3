@@ -137,9 +137,11 @@ const CsvViewer = ({ fileUrl, listData }) => {
           margin="normal"
         />
   </Grid>
-        
-<TableContainer component={Paper}>
-  <Table>
+
+<Grid item xs={12}>
+
+<TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+  <Table stickyHeader aria-label="Material Data List">
     <TableHead>
       <TableRow>
         <TableCell>Material Name</TableCell>
@@ -166,7 +168,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     </TableBody>
   </Table>
 </TableContainer>
-
+</Grid>
 
 
 {/* <TableContainer component={Paper}>
