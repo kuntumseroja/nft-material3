@@ -112,7 +112,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
           {/* <Typography variant="h6" gutterBottom component="div">
             Line Chart
           </Typography> */}
-            <Box sx={{ flexGrow: 1, width: '100%' }}>
+            {/* <Box sx={{ flexGrow: 1, width: '100%' }}> */}
             
                     {/* compare with {item.name} */}
                    
@@ -134,7 +134,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
                 )} */}
                 <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
               </LineChart>
-            </Box>
+            {/* </Box> */}
         {/* </Paper> */}
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
