@@ -233,7 +233,9 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     position: 'relative',
                     height: { xs: 120, sm: 170, md: 140 },
                     // height: { xs: 240, sm: 340, md: 280 },
-                    overflow: 'hidden',
+                    // overflow: 'hidden',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
                   }}
                 >
                   <Box
@@ -293,58 +295,29 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                         Link to seller address
                       </Link>
                   </Typography>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
+                  {/* <Box display={'flex'} alignItems={'center'} marginY={2}>
                     <Typography variant={'caption'} color="text.secondary">
                       {item.description}
                     </Typography>
                     
-                  </Box>
-
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                     Domain: {item.mtdomain}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                      Group: {item.mtgroup}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                      Material Class 1: {item.mtclass1}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                    Material Class 1:{item.mtclass1}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                    Material Class 2:{item.mtclass2}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                    Material Class 3:{item.mtclass3}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                    Material Grade:{item.grade}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                    Material Lot:{item.mtlot}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} alignItems={'center'} marginY={2}>
-                    <Typography variant={'caption'} color="text.secondary">
-                    Material Specimen: {item.mtspecimen} 
-                    </Typography>
-                  </Box>
+                  </Box> */}
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  {item.description}
+                  </Typography>
+                    <Box display="flex" flexDirection="column" gap={1}>
+                    {['mtdomain', 'mtgroup', 'mtclass1', 'mtclass2', 'mtclass3', 'grade', 'mtlot', 'mtspecimen'].map(key => (
+                      <Typography variant="caption" color="text.secondary" key={key}>
+                    {`${key.charAt(0).toUpperCase() + key.slice(1)}: ${item[key]}`}
+                      </Typography>
+                      ))}
+                    </Box>
+{/* 
+                    <Box mt={2} display="flex" alignItems="center">
+                     <LinkIcon sx={{ mr: 1 }} />
+                      <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
+                      View DataSheet NFT
+                     </Link>
+                    </Box> */}
                
 
                   <Box display={'flex'} alignItems={'center'}>
