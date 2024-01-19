@@ -66,7 +66,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Grid container spacing={3}>
     <Grid item xs={12} md={6}>
         <Typography variant="h6" gutterBottom>
-          Data Sheet
+          Data Sheet {item.name}
         </Typography>
     <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
       <Table>
@@ -93,7 +93,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>    
                     {/* compare with {item.name} */}
       <Typography variant="h6" gutterBottom component="div">
-            Chart 
+            Chart {item.name}
       </Typography>               
 {/* addition         */}
       <Box sx={{ flexGrow: 1, width: '100%' }}>
@@ -121,7 +121,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
-             Compare to: {selectedNFTName} DataSheet
+             Compare {item.name} to: {selectedNFTName} DataSheet
           </div>
         )}
          </Paper>
