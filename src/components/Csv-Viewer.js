@@ -70,6 +70,8 @@ const CsvViewer = ({ fileUrl, listData }) => {
     setModalOpen(false);
   };
   // const chartData = selectedNFT ? [...csvData, selectedNFT] : csvData;
+  console.log("CSV Data: ", csvData);
+  console.log("Headers: ", headers);
 
   return (
     <Grid container spacing={2}>
