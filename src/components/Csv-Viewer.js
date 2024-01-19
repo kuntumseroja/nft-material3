@@ -107,10 +107,11 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
     {/* Chart */}
       <Grid item xs={12} md={6}>
-        <Paper sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h6" gutterBottom component="div">
+        {/* <Paper sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}> */}
+        
+          {/* <Typography variant="h6" gutterBottom component="div">
             Line Chart
-          </Typography>
+          </Typography> */}
             <Box sx={{ flexGrow: 1, width: '100%' }}>
             
                     {/* compare with {item.name} */}
@@ -134,7 +135,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
                 <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
               </LineChart>
             </Box>
-        </Paper>
+        {/* </Paper> */}
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
              Selected DataSheet : {selectedNFTName}
