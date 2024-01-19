@@ -97,7 +97,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
       </Typography>               
 {/* addition         */}
       <Box sx={{ flexGrow: 1, width: '100%' }}>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={400}>
               <LineChart
           // width={500}
           // height={300}
