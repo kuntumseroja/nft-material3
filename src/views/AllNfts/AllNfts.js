@@ -3,6 +3,7 @@ import {
   Box,
   TextField,
   Pagination,
+  InputAdornment
 } from '@mui/material';
 //import Box from '@mui/material/Box';
 //import TextField from '@mui/material/TextField';
@@ -131,17 +132,34 @@ const AllNfts = () => {
   return (
     <Main>
       <Container>
-      <TextField 
+      {/* <TextField 
         label="Search NFTs" 
         variant="outlined" 
         onChange={(e) => setSearchQuery(e.target.value)}
-      />
+      /> */}
+        <TextField 
+          label="Search Material NFTs" 
+          variant="outlined" 
+          onChange={(e) => setSearchQuery(e.target.value)}
+          fullWidth
+          margin="normal"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          />
         <PortfolioGrid data={currentNfts} dataCsv={nfts} buttonShow={true} />
-        <Pagination 
-        count={pageCount} 
-        page={currentPage} 
-        onChange={handlePageChange} 
-      />
+        <Box my={4} display="flex" justifyContent="center">
+
+            <Pagination 
+            count={pageCount} 
+            page={currentPage} 
+            onChange={handlePageChange} 
+          />
+        </Box>
       </Container>
       <Box
         position={'relative'}
