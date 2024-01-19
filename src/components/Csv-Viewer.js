@@ -16,9 +16,20 @@ const CsvViewer = ({ fileUrl, listData }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (fileUrl) {
-        const response = await axios.get(fileUrl);
-        const parsedData = Papa.parse(response.data, { delimiter: ";", header: true, skipEmptyLines: true });
-        setCsvData(parsedData.data);
+        try {
+          const response = await axios.get(fileUrl);
+          const parsedData = Papa.parse(response.data, { delimiter: ";", header: true, skipEmptyLines: true });
+          setCsvData(parsedData.data);
+          if (parsedData.errors.length === 0) {
+            setCsvData(parsedData.data);
+          } else {
+            console.error("Error parsing CSV data:", parsedData.errors);
+            // Handle parsing errors here
+          }
+        } catch (error) {
+          console.error("Error fetching CSV data:", error);
+          // Handle fetching errors here
+        }
       }
     };
 
