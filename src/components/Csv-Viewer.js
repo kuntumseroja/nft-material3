@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, TextField,Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, TextField,Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import Papa from 'papaparse';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
@@ -61,9 +61,13 @@ const CsvViewer = ({ fileUrl, listData }) => {
   // const chartData = selectedNFT ? [...csvData, selectedNFT] : csvData;
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
     <Grid item xs={12} md={6}>
-    <TableContainer component={Paper}>
+    <Paper sx={{ p: 2, overflow: 'auto' }}>
+          <Typography variant="h6" gutterBottom>
+            CSV Data
+          </Typography>
+    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -84,42 +88,56 @@ const CsvViewer = ({ fileUrl, listData }) => {
       </Table>
     </TableContainer>
     </Grid>
+    {/* Chart */}
     <Grid item xs={12} md={6}>
+        <Paper sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="h6" gutterBottom component="div">
+            Line Chart
+          </Typography>
+          <Box sx={{ flexGrow: 1, width: '100%' }}>
             
                     {/* compare with {item.name} */}
                    
           
-        <LineChart
-          width={500}
-          height={300}
-          // data={csvData}
-        
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey={headers[0]} />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" data={csvData} dataKey={headers[1]} stroke="#8884d8" activeDot={{ r: 8 }} />
-          {/* {selectedNFT && selectedNFT.data && (
-            <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
-          )} */}
-          <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
-        </LineChart>
+              <LineChart
+              width={'100%'}
+              height={300}
+              data={csvData}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey={headers[0]} />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" data={csvData} dataKey={headers[1]} stroke="#8884d8" activeDot={{ r: 8 }} />
+                {/* {selectedNFT && selectedNFT.data && (
+                  <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
+                )} */}
+                <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
+              </LineChart>
+              </Box>
+        </Paper>
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
              Selected DataSheet : {selectedNFTName}
           </div>
         )}
       </Grid>
-      <Grid item xs={12} md={12}>
 
-      <TextField
-        label="Filter Material NFT"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      {/* <Grid item xs={12} md={12}>
+      <Grid item xs={12}> */}
+  <Grid item xs={12}>
+        <TextField
+          label="Filter Material NFT"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+        />
+  </Grid>
+        
 <TableContainer component={Paper}>
   <Table>
     <TableHead>
