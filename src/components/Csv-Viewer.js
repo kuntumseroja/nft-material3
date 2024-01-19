@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, TextField, Box, Typography, Paper } from '@mui/material';
 import axios from 'axios';
 import Papa from 'papaparse';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 // import { Modal, Button } from 'react-bootstrap';
 
 const CsvViewer = ({ fileUrl, listData }) => {
@@ -11,6 +12,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
   // const [modalOpen, setModalOpen] = useState(false);
   const [selectedNFTName, setSelectedNFTName] = useState(null);
 
+  
 
 
   useEffect(() => {
@@ -93,11 +95,13 @@ const CsvViewer = ({ fileUrl, listData }) => {
       <Typography variant="h6" gutterBottom component="div">
             Chart 
       </Typography>               
-          
-        <LineChart
-          width={500}
-          height={300}
-          // data={csvData}
+{/* addition         */}
+      <Box sx={{ flexGrow: 1, width: '100%' }}>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart
+          // width={500}
+          // height={300}
+          data={csvData}
         
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
@@ -112,6 +116,9 @@ const CsvViewer = ({ fileUrl, listData }) => {
           )} */}
           <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
         </LineChart>
+        </ResponsiveContainer>
+        </Box>
+
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
              Selected DataSheet : {selectedNFTName}
