@@ -62,40 +62,43 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
   return (
     <Grid container spacing={2}>
-    <Grid item xs={12} md={6}>
-    <Paper sx={{ p: 2, overflow: 'auto' }}>
+       {/* CSV Data Table */}
+      <Grid item xs={12} md={6}>
+        <Paper sx={{ p: 2, overflow: 'auto' }}>
           <Typography variant="h6" gutterBottom>
             CSV Data
           </Typography>
-    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {headers.map((header, i) => (
-              <TableCell key={i}>{header}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {csvData.map((row, i) => (
-            <TableRow key={i}>
-              {headers.map((header, cellIndex) => (
-                <TableCell key={cellIndex}>{row[header]}</TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </Paper>
-    </Grid>
+          <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header, i) => (
+                 <TableCell key={i}>{header}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+                <TableBody>
+                  {csvData.map((row, i) => (
+                    <TableRow key={i}>
+                      {headers.map((header, cellIndex) => (
+                      <TableCell key={cellIndex}>{row[header]}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+        </Paper>
+      </Grid>
+
+
     {/* Chart */}
-    <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         <Paper sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h6" gutterBottom component="div">
             Line Chart
           </Typography>
-          <Box sx={{ flexGrow: 1, width: '100%' }}>
+            <Box sx={{ flexGrow: 1, width: '100%' }}>
             
                     {/* compare with {item.name} */}
                    
@@ -117,7 +120,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
                 )} */}
                 <Line type="monotone" data={selectedNFT} dataKey={headers[1]} stroke="#82ca9d" activeDot={{ r: 8 }} />
               </LineChart>
-              </Box>
+            </Box>
         </Paper>
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
@@ -128,7 +131,8 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
       {/* <Grid item xs={12} md={12}>
       <Grid item xs={12}> */}
-  <Grid item xs={12}>
+      {/* Filter Text Field */}
+      <Grid item xs={12}>
         <TextField
           label="Filter Material NFT"
           value={searchTerm}
@@ -137,40 +141,40 @@ const CsvViewer = ({ fileUrl, listData }) => {
           fullWidth
           margin="normal"
         />
-  </Grid>
+      </Grid>
+      {/* Material NFT List */}
 
-<Grid item xs={12}>
+      <Grid item xs={12}>
 
-<TableContainer component={Paper} sx={{ maxHeight: 440 }}>
-  <Table stickyHeader aria-label="Material Data List">
-    <TableHead>
-      <TableRow>
-        <TableCell>Material Name</TableCell>
-        <TableCell>IPFS y</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {/* {listData && listData.map((item) => ( */}
-        {/* // <TableRow key={item.tokenId} className={selectedRow === item.tokenId ? "selected-row" : ""}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}> */}
-        {listData && listData
-        .filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.address.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        .map((item) => (
-        <TableRow key={item.tokenId}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}>
+        <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="Material Data List">
+            <TableHead>
+              <TableRow>
+                <TableCell>Material Name</TableCell>
+                 <TableCell>IPFS </TableCell>
+              </TableRow>
+            </TableHead>
+              <TableBody>
+                {/* {listData && listData.map((item) => ( */}
+                {/* // <TableRow key={item.tokenId} className={selectedRow === item.tokenId ? "selected-row" : ""}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}> */}
+                {listData && listData
+                .filter((item) =>
+                  item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  item.address.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+                  .map((item) => (
+                <TableRow key={item.tokenId}  style={{ cursor: 'pointer' }}  hover onClick={() => handleNFTClick(item)}>
 
-          <TableCell>{item.name}</TableCell>
-          <TableCell>{item.address}</TableCell>
-        </TableRow>
-    ))
-  }
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>{item.address}</TableCell>
+                </TableRow>
+                  ))
+                }
       {/* ))} */}
-    </TableBody>
-  </Table>
-</TableContainer>
-</Paper>
-</Grid>
+              </TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
 
 
 {/* <TableContainer component={Paper}>
@@ -199,7 +203,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
 
 
-      </Grid>
+     
     </Grid>
   );
 };
