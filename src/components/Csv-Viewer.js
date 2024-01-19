@@ -90,7 +90,9 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Grid item xs={12} md={6}>
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>    
                     {/* compare with {item.name} */}
-                   
+      <Typography variant="h6" gutterBottom component="div">
+            Chart 
+      </Typography>               
           
         <LineChart
           width={500}
