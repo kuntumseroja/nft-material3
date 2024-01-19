@@ -74,7 +74,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
   console.log("Headers: ", headers);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={3}>
        {/* CSV Data Table */}
       <Grid item xs={12} md={6}>
         <Paper sx={{ p: 2, overflow: 'auto' }}>
