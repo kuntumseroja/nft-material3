@@ -5,6 +5,8 @@ import {
   Pagination,
   InputAdornment
 } from '@mui/material';
+
+import SearchIcon from '@mui/icons-material/Search';
 //import Box from '@mui/material/Box';
 //import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material/styles';
