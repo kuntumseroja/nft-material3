@@ -495,7 +495,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
           {/* <DialogTitle>{title}</DialogTitle> */}
           <DialogContent>
             {/* <CsvViewer fileUrl={item.address} listData={data} title={title} /> */}
-            <CsvViewer fileUrl={item.address} listData={dataCsv} />
+            <CsvViewer fileUrl={item.address} listData={data} />
 
 
             
