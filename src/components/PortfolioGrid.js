@@ -504,7 +504,15 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
       {/* //new */}
       {dataCsv.map((item, i) => (
         <Dialog key={i} open={open[i]} onClose={() => handleOpenDialog(i, false)} fullWidth maxWidth="md">
-          <DialogTitle>DataSheet {item.name}-{item.address}</DialogTitle>
+          <DialogTitle
+          sx={{ 
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            color: 'primary.main', // Use a theme color
+            fontFamily: 'Roboto, Lato',
+            textAlign: 'center',
+            // You can add more responsive styles or theming here
+        }}>DataSheet {item.name}-{item.address}</DialogTitle>
           {/* <DialogTitle>{title}</DialogTitle> */}
           <DialogContent>
             {/* <CsvViewer fileUrl={item.address} listData={data} title={title} /> */}
