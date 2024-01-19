@@ -68,18 +68,18 @@ const CsvViewer = ({ fileUrl, listData }) => {
         <Typography variant="h6" gutterBottom>
           Data Sheet 
         </Typography>
-    <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
-      <Table>
+    <TableContainer component={Paper} sx={{ maxHeight: 440, mt: 2 }}>
+      <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
             {headers.map((header, i) => (
-              <TableCell key={i}>{header}</TableCell>
+              <TableCell key={i} sx={{ fontWeight: 'bold' }}>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {csvData.map((row, i) => (
-            <TableRow key={i}>
+            <TableRow key={i} hover role="checkbox" tabIndex={-1}>
               {headers.map((header, cellIndex) => (
                 <TableCell key={cellIndex}>{row[header]}</TableCell>
               ))}
