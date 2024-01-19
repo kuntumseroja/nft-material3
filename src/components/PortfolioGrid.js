@@ -301,9 +301,11 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     </Typography>
                     
                   </Box> */}
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                  {item.description}
-                  </Typography>
+                  <Box sx={{ border: 1, borderColor: 'grey.300', p: 1, my: 1 }}>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    {item.description}
+                    </Typography>
+                  </Box> 
                     <Box display="flex" flexDirection="column" gap={1}>
                     {['mtdomain', 'mtgroup', 'mtclass1', 'mtclass2', 'mtclass3', 'grade', 'mtlot', 'mtspecimen'].map(key => (
                       <Typography variant="caption" color="text.secondary" key={key}>
