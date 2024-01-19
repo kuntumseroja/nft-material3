@@ -480,7 +480,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
       />
 
       {/* //new */}
-      {dataCsv.map((item, i) => (
+      {data.map((item, i) => (
         <Dialog key={i} open={open[i]} onClose={() => handleOpenDialog(i, false)} fullWidth maxWidth="md">
           <DialogTitle
           sx={{ 
