@@ -87,6 +87,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </Paper>
     </Grid>
     {/* Chart */}
     <Grid item xs={12} md={6}>
@@ -168,6 +169,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     </TableBody>
   </Table>
 </TableContainer>
+</Paper>
 </Grid>
 
 
