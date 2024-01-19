@@ -90,13 +90,13 @@ const CsvViewer = ({ fileUrl, listData }) => {
     </TableContainer>
     </Grid>
     <Grid item xs={12} md={6}>
-    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>    
+    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', margin: 2 }}>    
                     {/* compare with {item.name} */}
       <Typography variant="h6" gutterBottom component="div">
             Chart 
       </Typography>               
 {/* addition         */}
-      <Box sx={{ flexGrow: 1, width: '100%' }}>
+      <Box sx={{ flexGrow: 1, width: '100%', mt: 2 }}>
             <ResponsiveContainer width="100%" height={400}>
               <LineChart
           // width={500}
@@ -127,7 +127,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
          </Paper>
       </Grid>
       <Grid item xs={12} md={12}>
-      <TextField
+        <TextField
           label="Filter Material NFT"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
