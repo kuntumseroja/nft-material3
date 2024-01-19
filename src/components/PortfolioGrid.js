@@ -301,6 +301,9 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     </Typography>
                     
                   </Box> */}
+              <Typography variant="subtitle1" gutterBottom>
+                Description
+              </Typography>
                   <Box sx={{ border: 1, borderColor: 'grey.300', p: 1, my: 1 }}>
                     <Typography variant="body2" color="text.secondary" gutterBottom>
                     {item.description}
