@@ -512,7 +512,8 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
             fontFamily: 'Roboto, Arial',
             textAlign: 'center',
             // You can add more responsive styles or theming here
-        }}>DataSheet {item.name}-{item.address}</DialogTitle>
+        // }}>DataSheet {item.name}-{item.address}</DialogTitle>
+        }}>DataSheet {item.name}</DialogTitle>
           {/* <DialogTitle>{title}</DialogTitle> */}
           <DialogContent>
             {/* <CsvViewer fileUrl={item.address} listData={data} title={title} /> */}
