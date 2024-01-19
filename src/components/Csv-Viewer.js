@@ -66,7 +66,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Grid container spacing={3}>
     <Grid item xs={12} md={6}>
         <Typography variant="h6" gutterBottom>
-          Data Sheet {item.name}
+          Data Sheet 
         </Typography>
     <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
       <Table>
@@ -93,7 +93,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>    
                     {/* compare with {item.name} */}
       <Typography variant="h6" gutterBottom component="div">
-            Chart {item.name}
+            Chart 
       </Typography>               
 {/* addition         */}
       <Box sx={{ flexGrow: 1, width: '100%' }}>
