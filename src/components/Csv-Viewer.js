@@ -64,7 +64,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Grid container spacing={3}>
     <Grid item xs={12} md={6}>
         <Typography variant="h6" gutterBottom>
-          CSV Data
+          Data Sheet
         </Typography>
     <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
       <Table>
@@ -118,12 +118,19 @@ const CsvViewer = ({ fileUrl, listData }) => {
          </Paper>
       </Grid>
       <Grid item xs={12} md={12}>
-
       <TextField
+          label="Filter Material NFT"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+        />
+      {/* <TextField
         label="Filter Material NFT"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      /> */}
 <TableContainer component={Paper}>
   <Table>
     <TableHead>
