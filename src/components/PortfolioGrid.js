@@ -509,7 +509,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
             fontSize: '1.5rem',
             fontWeight: 'bold',
             color: 'primary.main', // Use a theme color
-            fontFamily: 'Roboto, Lato',
+            fontFamily: 'Roboto, Arial',
             textAlign: 'center',
             // You can add more responsive styles or theming here
         }}>DataSheet {item.name}-{item.address}</DialogTitle>
