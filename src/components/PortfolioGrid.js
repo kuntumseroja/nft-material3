@@ -257,7 +257,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
       <Grid container spacing={4}>
         {data.map((item, i) => (
           // setNftName(`${item.name}`);
-          <Grid item xs={12} sm={6} md={4} key={i}>
+          <Grid item xs={12} sm={6} md={6} key={i}>
             <Box display={'block'} width={1} height={1}>
               <Box
                 key={i}
