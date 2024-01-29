@@ -23,6 +23,7 @@ import {
   IconButton,
   Collapse,
   Alert,
+  Divider,
 } from '@mui/material';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
@@ -38,7 +39,28 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, List
 //   setCsvData(parsedData.data);
 //   setOpenModal1(true);
 // };
+const fieldLabels = {
+  mtdomain: 'Material Domain',
+  mtgroup: 'Material Group',
+  mtclass1: 'Material Class 1',
+  mtclass2: 'Material Class 2',
+  mtclass3: 'Material Class 3',
+  grade: 'Material Grade',
+  mtlot: 'Material Lot',
+  mtspecimen: 'Material Specimen'
+};
 
+// Function to create a nested display
+const createNestedDisplay = (item, key, level = 0) => {
+  return (
+    <Box sx={{ marginLeft: `${level * 8}px` }} key={key}>
+      <Typography variant="caption" color="text.secondary">
+        {`${fieldLabels[key]}: ${item[key]}`}
+      </Typography>
+      {level < Object.keys(fieldLabels).length - 1 && createNestedDisplay(item, Object.keys(fieldLabels)[level + 1], level + 1)}
+    </Box>
+  );
+};
 
 // const headers = csvData.length > 0 ? Object.keys(csvData[0]) : [];
 const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => {
@@ -309,14 +331,21 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     {item.description}
                     </Typography>
                   </Box> 
-                    <Box display="flex" flexDirection="column" gap={1}>
+
+{/* add style hierarichal */}
+<Box display="flex" flexDirection="column" gap={1}>
+  {createNestedDisplay(item, 'mtdomain')}
+</Box>
+
+                    {/* <Box display="flex" flexDirection="column" gap={1}>
                     {['mtdomain', 'mtgroup', 'mtclass1', 'mtclass2', 'mtclass3', 'grade', 'mtlot', 'mtspecimen'].map(key => (
                       <Typography variant="caption" color="text.secondary" key={key}>
                     {`${key.charAt(0).toUpperCase() + key.slice(1)}: ${item[key]}`}
                       </Typography>
                       ))}
-                    </Box>
+                    </Box> */}
 {/* 
+
                     <Box mt={2} display="flex" alignItems="center">
                      <LinkIcon sx={{ mr: 1 }} />
                       <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
