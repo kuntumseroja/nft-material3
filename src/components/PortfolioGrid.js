@@ -67,14 +67,11 @@ const fieldLabels = {
 // new hirarki
 const createNestedDisplay = (item, key, level = 0) => {
   return (
-    <Box sx={{ ml: `${level * 2}em`, my: 1, display: 'flex', alignItems: 'center', flexDirection: 'column' }} key={key}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        {level === 0 ? <FolderOpenIcon sx={{ color: 'primary.main', mr: 1 }} /> : <FolderIcon sx={{ color: 'grey.500', mr: 1 }} />}
-        <Typography variant="subtitle2" color="text.secondary" sx={{ fontWeight: 'bold' }}>
-          {`${fieldLabels[key]}:`}
-        </Typography>
-      </Box>
-      <Typography variant="body2" sx={{ ml: 4 }}>
+    <Box sx={{ marginLeft: `${level * 8}px` }} key={key}>
+      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 'bold' }}>
+        {`${fieldLabels[key]}: `}
+      </Typography>
+      <Typography variant="caption" color="text.secondary">
         {item[key]}
       </Typography>
       {level < Object.keys(fieldLabels).length - 1 && createNestedDisplay(item, Object.keys(fieldLabels)[level + 1], level + 1)}
