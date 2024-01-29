@@ -16,6 +16,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import CsvViewer from 'components/Csv-Viewer';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Paper } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
 import {
   TextField,
   Snackbar,
@@ -51,10 +52,23 @@ const fieldLabels = {
 };
 
 // Function to create a nested display
+// const createNestedDisplay = (item, key, level = 0) => {
+//   return (
+//     <Box sx={{ marginLeft: `${level * 8}px` }} key={key}>
+//       <Typography variant="caption" color="text.secondary">
+//         {`${fieldLabels[key]}: ${item[key]}`}
+//       </Typography>
+//       {level < Object.keys(fieldLabels).length - 1 && createNestedDisplay(item, Object.keys(fieldLabels)[level + 1], level + 1)}
+//     </Box>
+//   );
+// };
+
+// new hirarki
 const createNestedDisplay = (item, key, level = 0) => {
   return (
-    <Box sx={{ marginLeft: `${level * 8}px` }} key={key}>
-      <Typography variant="caption" color="text.secondary">
+    <Box sx={{ ml: `${level * 2}em`, my: 0.5, display: 'flex', alignItems: 'center' }} key={key}>
+      <FolderIcon sx={{ fontSize: '1rem', mr: 1, color: level === 0 ? 'primary.main' : 'grey.500' }} />
+      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: level === 0 ? 'bold' : 'normal' }}>
         {`${fieldLabels[key]}: ${item[key]}`}
       </Typography>
       {level < Object.keys(fieldLabels).length - 1 && createNestedDisplay(item, Object.keys(fieldLabels)[level + 1], level + 1)}
