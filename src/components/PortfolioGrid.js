@@ -17,6 +17,7 @@ import CsvViewer from 'components/Csv-Viewer';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Paper } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import {
   TextField,
   Snackbar,
