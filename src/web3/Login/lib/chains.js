@@ -207,7 +207,40 @@ const supportedChains = [
       contractAddress: '',
       balance: ''
     }
-  }
+  },
+
+  {
+    name: 'Polygon Amoy Testnet',
+    short_name: 'amoy',
+    chain: 'Polygon',
+    network: 'amoy',
+    chain_id: 80002,
+    network_id: 80002,
+    rpc_url: 'https://polygon-amoy.core.chainstack.com/10a1944697a658dc2fcfec3089d3adf2', // Replace with your RPC URL
+    native_currency: {
+      symbol: 'POL',
+      name: 'POL',
+      decimals: '18',
+      contractAddress: '',
+      balance: ''
+    }
+  },
+  {
+    name: 'Localhost',
+    short_name: 'local',
+    chain: 'ETH',
+    network: 'localhost',
+    chain_id: 31337, // Chain ID for localhost (Hardhat Network)
+    network_id: 31337,
+    rpc_url: 'http://127.0.0.1:8545', // Localhost RPC URL
+    native_currency: {
+      symbol: 'ETH',
+      name: 'Ethereum',
+      decimals: '18',
+      contractAddress: '',
+      balance: '',
+    },
+  },
 ]
 
 export default supportedChains;

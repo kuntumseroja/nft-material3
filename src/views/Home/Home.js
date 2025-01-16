@@ -17,55 +17,61 @@ const Home = () => {
   const theme = useTheme();
   const [nfts, setNfts] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   useEffect(() => {
     loadNFTs();
   }, []);
 
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      process.env.MUMBAI_URL,
-    );
-    const marketContract = new ethers.Contract(
-      process.env.MARKETPLACE_ADDRESS,
-      Material.abi,
-      provider,
-    );
-    const data = await marketContract.fetchMarketItems();
+    setLoading(true); // Set loading to true when fetching data
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(process.env.MUMBAI_URL);
+      const marketContract = new ethers.Contract(
+        process.env.MARKETPLACE_ADDRESS,
+        Material.abi,
+        provider,
+      );
+      const data = await marketContract.fetchMarketItems();
 
-    const items = await Promise.all(
-      data.map(async (i) => {
-        const tokenUri = await marketContract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        let item = {
-          price,
-          tokenId: i.tokenId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
-          mtdomain: meta.data.mtdomain,
-          mtgroup: meta.data.mtgroup,
-          mtclass1: meta.data.mtclass1,
-          mtclass2: meta.data.mtclass2,
-          mtclass3: meta.data.mtclass3,
-          grade: meta.data.grade,
-          mtlot: meta.data.mtlot,
-          mtspecimen: meta.data.mtspecimen,
-          address: meta.data.image,
-          tokenUri, 
-        };
-        return item;
-      }),
-    );
+      const items = await Promise.all(
+        data.map(async (i) => {
+          const tokenUri = await marketContract.tokenURI(i.tokenId);
+          const meta = await axios.get(tokenUri);
+          let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+          let item = {
+            price,
+            tokenId: i.tokenId.toNumber(),
+            seller: i.seller,
+            owner: i.owner,
+            image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
+            mtdomain: meta.data.mtdomain,
+            mtgroup: meta.data.mtgroup,
+            mtclass1: meta.data.mtclass1,
+            mtclass2: meta.data.mtclass2,
+            mtclass3: meta.data.mtclass3,
+            grade: meta.data.grade,
+            mtlot: meta.data.mtlot,
+            mtspecimen: meta.data.mtspecimen,
+            address: meta.data.image,
+            tokenUri,
+          };
+          return item;
+        }),
+      );
 
-    setNfts(items);
-    setLoaded(true);
+      setNfts(items);
+    } catch (error) {
+      console.error('Error loading NFTs:', error);
+    } finally {
+      setLoading(false);
+      setLoaded(true);
+    }
   }
 
-  if (loaded && !nfts.length)
+  if (loaded && !nfts.length) {
     return (
       <Main>
         <Container>
@@ -106,6 +112,8 @@ const Home = () => {
         </Container>
       </Main>
     );
+  }
+
   return (
     <Main>
       <Container>
