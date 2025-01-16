@@ -31,8 +31,8 @@ const Footer = () => {
               component={'img'}
               src={
                 mode === 'light'
-                  ? 'https://firebasestorage.googleapis.com/v0/b/virtualground-meta.appspot.com/o/nft%2Fnft.png?alt=media&token=58741d5d-9f34-4884-a30e-3cb24c0f2028'
-                  : 'https://firebasestorage.googleapis.com/v0/b/virtualground-meta.appspot.com/o/nft%2Fnft.png?alt=media&token=58741d5d-9f34-4884-a30e-3cb24c0f2028'
+                  ? 'https://i.ibb.co.com/VMNG197/logo-nft.png'
+                  : 'https://i.ibb.co.com/VMNG197/logo-nft.png'
               }
               height={1}
               width={1}
