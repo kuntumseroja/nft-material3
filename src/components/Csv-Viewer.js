@@ -66,7 +66,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
     <Grid container spacing={3}>
     <Grid item xs={12} md={6}>
         <Typography variant="h6" gutterBottom>
-          Data Sheet 
+          DataSet 
         </Typography>
     <TableContainer component={Paper} sx={{ maxHeight: 460, mt: 2 }}>
       <Table stickyHeader aria-label="sticky table">
