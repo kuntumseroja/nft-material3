@@ -292,7 +292,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                       borderRadius={2}
                     >
                       <Typography sx={{ fontWeight: 600 }}>
-                        {item.price} MATIC
+                        {item.price} POL
                       </Typography>
                     </Box>
                     <Box

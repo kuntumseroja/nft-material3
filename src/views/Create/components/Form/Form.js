@@ -570,7 +570,7 @@ const Form = () => {
               Price
             </Typography>
             <TextField
-              label="Price in Matic *"
+              label="Price in POL *"
               variant="outlined"
               name={'price'}
               fullWidth
