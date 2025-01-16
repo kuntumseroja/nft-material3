@@ -47,7 +47,7 @@ const Hero = () => {
               <Box
                 component={'img'}
                 src={
-                  'https://ibb.co.com/GnM1Y48'
+                  'https://i.ibb.co.com/ZGgw4pF/priyoj-Minimalist-flat-illustration-of-a-car-battery-raw-materi-1ef09376-ead4-4871-83b1-ec7587f18d8a.webp' 
                 }
                 width={1}
                 height={1}
