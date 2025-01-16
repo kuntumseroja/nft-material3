@@ -47,7 +47,7 @@ const Hero = () => {
               <Box
                 component={'img'}
                 src={
-                  'https://media.discordapp.net/attachments/1045347503865856012/1329446260519993476/priyoj_Minimalist_flat_illustration_of_a_car_battery_raw_materi_1ef09376-ead4-4871-83b1-ec7587f18d8a.png'
+                  'https://i.ibb.co.com/8XvhNP8/nft-material.png'
                 }
                 width={1}
                 height={1}
