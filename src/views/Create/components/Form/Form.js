@@ -633,7 +633,7 @@ const Form = () => {
         title={'Yeee!'}
         message={`NFT created successfully with hash: ${hash}`}
         buttonText="View on polygonscan"
-        buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+        buttonLink={`https://polygonscan.com/tx/${hash}`}
       />
     </Box>
   );

@@ -79,7 +79,7 @@ const HomeGrid = ({ data = [] }) => {
                     {item.name}
                   </Typography>
                   <Typography variant={'subtitle2'} color="text.secondary">
-                      <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
+                      <Link href={`https://polygonscan.com/address/${item.seller}`} underline="none">
                         Link to creator address
                       </Link>
                   </Typography>            

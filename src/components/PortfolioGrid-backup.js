@@ -228,7 +228,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                 <CardMedia
                   title={item.name}
                   //image={item.image}
-                  image="https://mumbai.polygonscan.com/images/main/nft-placeholder.svg"
+                  image="https://polygonscan.com/images/main/nft-placeholder.svg"
                   sx={{
                     position: 'relative',
                     height: { xs: 120, sm: 170, md: 140 },
@@ -289,7 +289,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     {item.name}
                   </Typography>
                   <Typography variant={'subtitle2'} color="text.secondary">
-                      <Link href={`https://mumbai.polygonscan.com/address/${item.seller}`} underline="none">
+                      <Link href={`https://polygonscan.com/address/${item.seller}`} underline="none">
                         Link to seller address
                       </Link>
                   </Typography>
@@ -479,7 +479,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
   // message={successMessage}
   message={`Material successfully listed for ${resellPrice} with hash ${hash}`}
   buttonText="View on polygonscan"
-  buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+  buttonLink={`https://polygonscan.com/tx/${hash}`}
   action={
     <Button color="secondary" size="small" onClick={() => setSnackbarOpen(false)}>
       Close
@@ -493,7 +493,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
   // message={successMessage}
   message={`Material successfully transfered, check your asset`}
   // buttonText="View on polygonscan"
-  // buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+  // buttonLink={`https://polygonscan.com/tx/${hash}`}
   action={
     <Button color="secondary" size="small" onClick={() => setSnackbarOpen(false)}>
       Close
