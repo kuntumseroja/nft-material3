@@ -31,7 +31,7 @@ const Hero = () => {
                   fontWeight: 700,
                 }}
               >
-                Discover, collect, and sell extraordinary NFTs
+                Discover, collect, and sell Material NFTs
               </Typography>
             </Box>
           </Box>
@@ -47,7 +47,7 @@ const Hero = () => {
               <Box
                 component={'img'}
                 src={
-                  'https://i.ibb.co.com/ZGgw4pF/priyoj-Minimalist-flat-illustration-of-a-car-battery-raw-materi-1ef09376-ead4-4871-83b1-ec7587f18d8a.webp' 
+                  'https://drive.google.com/file/d/1BzxmUuQGOoFFzQEqtV4kAZedvwd56P4L/view?usp=sharing' 
                 }
                 width={1}
                 height={1}
