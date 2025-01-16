@@ -47,7 +47,7 @@ const Hero = () => {
               <Box
                 component={'img'}
                 src={
-                  'https://drive.google.com/file/d/1BzxmUuQGOoFFzQEqtV4kAZedvwd56P4L/view?usp=sharing' 
+                  'https://i.ibb.co.com/52p7Gsc/nft-material.png'
                 }
                 width={1}
                 height={1}
