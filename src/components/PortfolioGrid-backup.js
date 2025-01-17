@@ -207,7 +207,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
     const newOpen = open.slice();
     newOpen[i] = openState;
     setOpen(newOpen);
-    // setTitle(DataSheet {item.name}-{item.address});
+    // setTitle(Data Set {item.name}-{item.address});
   };
 
   return (
@@ -366,7 +366,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                       onClick={() => handleOpenDialog(i, true)}
                       sx={{ flexDirection: 'column', alignItems: 'flex-start' }}
                        >
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold">View DataSheet NFT:</Typography>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold">View Data Set NFT:</Typography>
                       <Typography variant="subtitle2" fontWeight="fontWeightBold">Seller</Typography>
                       <Typography variant="caption" style={{ fontStyle: 'italic' }}>{item.seller}</Typography>
 
@@ -512,8 +512,8 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
             fontFamily: 'Roboto, Arial',
             textAlign: 'center',
             // You can add more responsive styles or theming here
-        // }}>DataSheet {item.name}-{item.address}</DialogTitle>
-        }}>DataSheet {item.name}</DialogTitle>
+        // }}>Data Set {item.name}-{item.address}</DialogTitle>
+        }}>Data Set {item.name}</DialogTitle>
           {/* <DialogTitle>{title}</DialogTitle> */}
           <DialogContent>
             {/* <CsvViewer fileUrl={item.address} listData={data} title={title} /> */}

@@ -121,7 +121,7 @@ const CsvViewer = ({ fileUrl, listData }) => {
 
         {selectedNFTName && (
           <div style={{ textAlign: 'center', marginTop: '10px' }}>
-             Compare to: {selectedNFTName} DataSheet
+             Compare to: {selectedNFTName} Data Set
           </div>
         )}
          </Paper>
