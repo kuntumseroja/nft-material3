@@ -291,7 +291,9 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                       boxShadow={1}
                       borderRadius={2}
                     >
-                      <Typography sx={{ fontWeight: 800 }}>
+                      <Typography 
+                      variant={'h6'}
+                      sx={{ fontWeight: 800 }}>
                       {item.name} 
                       {/* {item.price} POL */}
                       </Typography>
@@ -324,7 +326,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                 </CardMedia>
                 <CardContent>
                   <Typography
-                    variant={'h6'}
+                    // variant={'h6'}
                     align={'left'}
                     sx={{ fontWeight: 500 }}
                   >
