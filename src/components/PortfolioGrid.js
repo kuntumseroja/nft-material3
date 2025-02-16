@@ -331,7 +331,7 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                     sx={{ fontWeight: 500 }}
                   >
                     {/* {item.name} */}
-                    price : {item.name}
+                    price : {item.price} ETH
                   </Typography>
                   <Typography variant={'subtitle2'} color="text.secondary">
                       <Link href={`https://polygonscan.com/address/${item.seller}`} underline="none">
