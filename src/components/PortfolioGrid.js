@@ -291,8 +291,9 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                       boxShadow={1}
                       borderRadius={2}
                     >
-                      <Typography sx={{ fontWeight: 600 }}>
-                        {item.price} POL
+                      <Typography sx={{ fontWeight: 800 }}>
+                      {item.name} 
+                      {/* {item.price} POL */}
                       </Typography>
                     </Box>
                     <Box
@@ -325,9 +326,10 @@ const PortfolioGrid = ({ data = [], dataCsv = [], buttonShow, buttonAsset }) => 
                   <Typography
                     variant={'h6'}
                     align={'left'}
-                    sx={{ fontWeight: 700 }}
+                    sx={{ fontWeight: 500 }}
                   >
-                    {item.name}
+                    {/* {item.name} */}
+                    price : {item.name}
                   </Typography>
                   <Typography variant={'subtitle2'} color="text.secondary">
                       <Link href={`https://polygonscan.com/address/${item.seller}`} underline="none">
