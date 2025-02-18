@@ -6,7 +6,10 @@ import {
   Typography,
   Button,
   Alert,
-  Box 
+  Box,
+  Divider,
+  Paper,
+  Grid 
 } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -19,6 +22,7 @@ const ExcelMatMLConverter = () => {
   const [xmlData, setXmlData] = useState(null);
   const [error, setError] = useState(null);
   const [chartData, setChartData] = useState(null);
+  const [materialInfo, setMaterialInfo] = useState(null);
   const [originalFileName, setOriginalFileName] = useState("");
 
   const convertToMatML = (jsonData) => {
@@ -29,7 +33,6 @@ const ExcelMatMLConverter = () => {
       const getMetadataValue = (data, rowIndex) => {
         return data[rowIndex] && data[rowIndex][2] ? data[rowIndex][2].toString() : '';
       };
-
       const metadata = {
         composition: getMetadataValue(jsonData, 0),
         mass: getMetadataValue(jsonData, 1),
@@ -37,6 +40,9 @@ const ExcelMatMLConverter = () => {
         potentialRange: getMetadataValue(jsonData, 3)
       };
       
+      // Set material info for display
+      setMaterialInfo(metadata);
+
       xml += `<Material>\n  <BulkDetails>\n    <Composition>\n`;
       
       // Parse composition with error handling
@@ -70,7 +76,6 @@ const ExcelMatMLConverter = () => {
       if (dataStartIndex === -1) {
         throw new Error('Could not find cycling data headers');
       }
-
       xml += `  <CyclingData>\n`;
       const cyclingData = [];
       
@@ -104,14 +109,13 @@ const ExcelMatMLConverter = () => {
     setError(null);
     setXmlData(null);
     setChartData(null);
+    setMaterialInfo(null);
     
     const file = event.target.files[0];
     if (!file) return;
-
     // Store original filename without extension
     const baseFileName = file.name.replace(/\.[^/.]+$/, "");
     setOriginalFileName(baseFileName);
-
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -150,7 +154,6 @@ const ExcelMatMLConverter = () => {
     const fileName = originalFileName 
       ? `${originalFileName}_converted${timestamp}.xml`
       : `converted${timestamp}.xml`;
-
     const blob = new Blob([xmlData], { type: "application/xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -200,37 +203,80 @@ const ExcelMatMLConverter = () => {
                 </Button>
               )}
             </Box>
+
             {error && (
               <Alert severity="error" sx={{ mt: 2 }}>
                 {error}
               </Alert>
             )}
+
             {chartData && chartData.length > 0 && (
-              <Box sx={{ mt: 4, height: 400 }}>
+              <Box sx={{ mt: 4 }}>
+                {materialInfo && (
+                  <Paper sx={{ p: 2, mb: 3, bgcolor: 'background.default' }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography variant="subtitle2" color="textSecondary">
+                          Composition:
+                        </Typography>
+                        <Typography variant="body1">
+                          {materialInfo.composition}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Typography variant="subtitle2" color="textSecondary">
+                          Mass:
+                        </Typography>
+                        <Typography variant="body1">
+                          {materialInfo.mass}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Typography variant="subtitle2" color="textSecondary">
+                          Current Density:
+                        </Typography>
+                        <Typography variant="body1">
+                          {materialInfo.currentDensity}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Typography variant="subtitle2" color="textSecondary">
+                          Potential Range:
+                        </Typography>
+                        <Typography variant="body1">
+                          {materialInfo.potentialRange}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                )}
+
                 <Typography variant="h6" gutterBottom>
                   Capacity vs Cycle Number
                 </Typography>
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis 
-                      dataKey="cycle" 
-                      label={{ value: 'Cycle Number', position: 'insideBottom', offset: -5 }}
-                    />
-                    <YAxis 
-                      label={{ value: 'Capacity (mAh/g)', angle: -90, position: 'insideLeft' }}
-                    />
-                    <Tooltip />
-                    <Legend />
-                    <Line 
-                      type="monotone" 
-                      dataKey="capacity" 
-                      stroke="#8884d8" 
-                      name="Capacity"
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+                <Box sx={{ height: 400 }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={chartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        dataKey="cycle" 
+                        label={{ value: 'Cycle Number', position: 'insideBottom', offset: -5 }}
+                      />
+                      <YAxis 
+                        label={{ value: 'Capacity (mAh/g)', angle: -90, position: 'insideLeft' }}
+                      />
+                      <Tooltip />
+                      <Legend />
+                      <Line 
+                        type="monotone" 
+                        dataKey="capacity" 
+                        stroke="#8884d8" 
+                        name="Capacity"
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Box>
               </Box>
             )}
           </CardContent>
