@@ -9,4 +9,17 @@ module.exports = {
     MUMBAI_URL: process.env.MUMBAI_URL,
     MARKETPLACE_ADDRESS: process.env.MARKETPLACE_ADDRESS,
   },
+  // Add webpack config here
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        stream: false,
+        path: false,
+        crypto: false,
+      };
+    }
+    return config;
+  },
 };
