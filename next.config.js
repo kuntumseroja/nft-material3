@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   swcMinify: true,
   env: {
@@ -9,7 +11,6 @@ module.exports = {
     MUMBAI_URL: process.env.MUMBAI_URL,
     MARKETPLACE_ADDRESS: process.env.MARKETPLACE_ADDRESS,
   },
-  // Add webpack config here
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -20,12 +21,12 @@ module.exports = {
         crypto: false,
       };
 
-      // Add only the essential plugin for web3
-      config.plugins.push(
+      config.plugins = [
+        ...(config.plugins || []),
         new webpack.ProvidePlugin({
-          process: 'process/browser',
+          process: 'process/browser'
         })
-      );
+      ];
     }
     return config;
   },
