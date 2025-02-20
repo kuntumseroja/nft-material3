@@ -31,7 +31,9 @@ const Hero = () => {
                   fontWeight: 700,
                 }}
               >
-                Discover, collect, and sell Material NFTs
+                Traceable Material Data NFTs
+
+
               </Typography>
             </Box>
           </Box>
