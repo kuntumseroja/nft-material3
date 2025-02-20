@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// import React from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
@@ -6,11 +7,22 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Hero from 'components/Hero';
 import Contact from 'components/Contact';
-import { Form } from './components';
+// import { Form } from './components';
+import dynamic from 'next/dynamic';
+
+// Dynamically import the Form component with SSR disabled
+const Form = dynamic(
+  () => import('./components').then((mod) => mod.Form),
+  { ssr: false }
+);
 
 export default function CreateItem() {
   const theme = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <Main>
       <Container>
