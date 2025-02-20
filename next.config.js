@@ -1,5 +1,3 @@
-const webpack = require('webpack');
-
 module.exports = {
   swcMinify: true,
   env: {
@@ -14,19 +12,15 @@ module.exports = {
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
-        ...config.resolve.fallback,
         fs: false,
-        stream: false,
+        net: false,
+        tls: false,
         path: false,
+        stream: false,
         crypto: false,
+        http: false,
+        https: false,
       };
-
-      config.plugins = [
-        ...(config.plugins || []),
-        new webpack.ProvidePlugin({
-          process: 'process/browser'
-        })
-      ];
     }
     return config;
   },
