@@ -9,5 +9,4 @@ module.exports = {
     MUMBAI_URL: process.env.MUMBAI_URL,
     MARKETPLACE_ADDRESS: process.env.MARKETPLACE_ADDRESS,
   },
-
-}
+};
