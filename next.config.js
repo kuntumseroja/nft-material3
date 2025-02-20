@@ -12,14 +12,42 @@ module.exports = {
   // Add webpack config here
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      // These polyfills are needed for web3 libraries
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
-        stream: false,
+        net: false,
+        tls: false,
+        crypto: require.resolve('crypto-browserify'),
+        stream: require.resolve('stream-browserify'),
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        os: require.resolve('os-browserify/browser'),
         path: false,
-        crypto: false,
+        assert: require.resolve('assert'),
+        zlib: require.resolve('browserify-zlib'),
+        url: require.resolve('url'),
+        querystring: require.resolve('querystring-es3'),
       };
+      
+      // Add buffer polyfill
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'buffer': 'buffer',
+      };
+
+      // Add plugins for buffer support
+      config.plugins.push(
+        new webpack.ProvidePlugin({
+          Buffer: ['buffer', 'Buffer'],
+          process: 'process/browser',
+        }),
+      );
     }
     return config;
   },
-};
+  experimental: {
+    optimizeCss: true,
+    scrollRestoration: true,
+  },
+}
